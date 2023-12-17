@@ -2,6 +2,30 @@ template<typename T>
 List<T>::List() : head(nullptr), size(0) {}
 
 template<typename T>
+List<T>::List(const List<T> & ll) : head(nullptr), size(0) {
+	Node<T>* head = ll.getHead();
+	while(head != nullptr) {
+		push_back(head->data);
+		head = head->next;
+	}
+}
+
+template<typename T>
+List<T>& List<T>::operator=(List<T> const& ll) {
+	if (this == &ll)
+        return *this;
+	
+	List<T> tmp(ll);
+	
+	size = tmp.getSize();
+	
+	head = tmp.getHead();
+	tmp.head = nullptr;
+	
+	return *this;
+}
+
+template<typename T>
 List<T>::~List() 
 {
 	Node<T> *tmp = nullptr;
@@ -11,7 +35,7 @@ List<T>::~List()
 		head = head->next;
 		delete tmp;
 	}
-	head =nullptr;
+	head = nullptr;
 }
 
 template<typename T>

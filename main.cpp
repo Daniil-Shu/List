@@ -30,5 +30,12 @@ int main()
 	std::cout << ll1 << '\n';
 	std::cout << "Size: " << ll1.getSize() << "\n\n";
 	
+	List<int> ll2(ll1);
+	std::cout << ll2 << '\n';
+	
+	List<int> ll3;
+	ll3 = ll1;
+	std::cout << ll3 << '\n';
+	
     return 0;
 }
