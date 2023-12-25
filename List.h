@@ -6,14 +6,15 @@ class List
 private:
 	Node<T>* head;
 	size_t size;
-	
 public:
 	List();
 	List(const List<T> & ll);
+    List(List<T>&& ll) noexcept ;
 	~List();
 	
 	List<T>& operator=(List<T> const& ll);
-	
+	List<T>& operator=(List<T>&& ll) noexcept ;
+
 	/*
 	* @brief получение указателя на первый элемент в списке
 	* @return указатель на первый элемент в списке

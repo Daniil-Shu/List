@@ -11,6 +11,14 @@ List<T>::List(const List<T> & ll) : head(nullptr), size(0) {
 }
 
 template<typename T>
+List<T>::List(List<T> && ll) noexcept {
+    head = ll.head;
+    size = ll.size;
+
+    ll.head = nullptr;
+}
+
+template<typename T>
 List<T>& List<T>::operator=(List<T> const& ll) {
 	if (this == &ll)
         return *this;
@@ -23,6 +31,16 @@ List<T>& List<T>::operator=(List<T> const& ll) {
 	tmp.head = nullptr;
 	
 	return *this;
+}
+
+template<typename T>
+List<T> &List<T>::operator=(List<T> && ll) noexcept {
+    if (this != &ll)
+        return *this;
+
+    this = List<T>(ll);
+
+    return *this;
 }
 
 template<typename T>
