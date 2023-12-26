@@ -1,5 +1,8 @@
 #include "Node.h"
-
+/*
+ * Односвязный список 
+ * @tparam T - тип данных элементов, хранимых в списке.
+ */
 template <typename T>
 class List
 {
@@ -9,11 +12,11 @@ private:
 public:
 	List();
 	List(const List<T> & ll);
-    List(List<T>&& ll) noexcept ;
+    List(List<T>&& ll);
 	~List();
 	
 	List<T>& operator=(List<T> const& ll);
-	List<T>& operator=(List<T>&& ll) noexcept ;
+	List<T>& operator=(List<T>&& ll);
 
 	/*
 	* @brief получение указателя на первый элемент в списке
@@ -45,6 +48,13 @@ public:
 	* @param data информация об элементе
 	*/
 	void push_front(T data);
+	
+	/*
+	* @brief добавление элемента на заданную позицию
+	* @param data информация об элементе
+	* @param index позиция элемента 
+	*/
+	void push(T data, size_t index);
 	
 	/*
 	* @brief удаление первого элемента в списке

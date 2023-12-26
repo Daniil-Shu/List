@@ -11,11 +11,12 @@ List<T>::List(const List<T> & ll) : head(nullptr), size(0) {
 }
 
 template<typename T>
-List<T>::List(List<T> && ll) noexcept {
+List<T>::List(List<T> && ll) : List() {
     head = ll.head;
     size = ll.size;
 
     ll.head = nullptr;
+    ll.size = 0;
 }
 
 template<typename T>
@@ -34,11 +35,12 @@ List<T>& List<T>::operator=(List<T> const& ll) {
 }
 
 template<typename T>
-List<T> &List<T>::operator=(List<T> && ll) noexcept {
+List<T> &List<T>::operator=(List<T> && ll) {
     if (this != &ll)
         return *this;
 
-    this = List<T>(ll);
+    head = std::move(ll.head);
+    size = std::move(ll.size);
 
     return *this;
 }
@@ -113,6 +115,28 @@ void List<T>::push_front(T data)
 		head = t;
 	}
 	size++;
+}
+
+template<typename T>
+void List<T>::push(T data, size_t index)
+{
+	Node<T> *cur = head; 
+	Node<T> *prev = nullptr;
+	size_t cur_index = 0;
+	while (cur_index != index && cur != nullptr) 
+	{
+		prev = cur;
+		cur = cur->next;
+		++cur_index;
+	}
+	if (cur_index == index) 
+	{
+		Node<T> *t = new Node<T>(data);
+		if (prev != nullptr) prev->next = t;
+		else head = t;
+		t->next = cur;
+		size++;
+	}
 }
 
 template<typename T>
