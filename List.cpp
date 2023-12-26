@@ -15,8 +15,10 @@ template<typename T>
 List<T>::List(List<T> && ll) : List() 
 {
 
-     head = std::move(ll.head);
-     size = std::move(ll.size);
+     head = ll.getHead();
+     ll.head = nullptr;
+     size = ll.getSize();
+     ll.size = 0;
 
 }
 
@@ -28,8 +30,10 @@ List<T>& List<T>::operator=(List<T> const& ll)
 	
 	List<T> tmp(ll);
 	
-	std::swap(size, tmp.getSize());
-	std::swap(head, tmp.getHead());
+	size = tmp.getSize();
+
+ 	head = tmp.getHead();
+ 	tmp.head = nullptr;
 	
 	return *this;
 }
