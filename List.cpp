@@ -2,7 +2,8 @@ template<typename T>
 List<T>::List() : head(nullptr), size(0) {}
 
 template<typename T>
-List<T>::List(const List<T> & ll) : head(nullptr), size(0) {
+List<T>::List(const List<T> & ll) : head(nullptr), size(0) 
+	{
 	Node<T>* head = ll.getHead();
 	while(head != nullptr) {
 		push_back(head->data);
@@ -11,31 +12,31 @@ List<T>::List(const List<T> & ll) : head(nullptr), size(0) {
 }
 
 template<typename T>
-List<T>::List(List<T> && ll) : List() {
-    head = ll.head;
-    size = ll.size;
+List<T>::List(List<T> && ll) : List() 
+{
 
-    ll.head = nullptr;
-    ll.size = 0;
+     head = std::move(ll.head);
+     size = std::move(ll.size);
+
 }
 
 template<typename T>
-List<T>& List<T>::operator=(List<T> const& ll) {
+List<T>& List<T>::operator=(List<T> const& ll) 
+{
 	if (this == &ll)
         return *this;
 	
 	List<T> tmp(ll);
 	
-	size = tmp.getSize();
-	
-	head = tmp.getHead();
-	tmp.head = nullptr;
+	std::swap(size, tmp.getSize());
+	std::swap(head, tmp.getHead());
 	
 	return *this;
 }
 
 template<typename T>
-List<T> &List<T>::operator=(List<T> && ll) {
+List<T> &List<T>::operator=(List<T> && ll) 
+{
     if (this != &ll)
         return *this;
 
@@ -137,6 +138,24 @@ void List<T>::push(T data, size_t index)
 		t->next = cur;
 		size++;
 	}
+}
+
+template<typename T>
+Node<T>* List<T>::get_by_index(size_t index)
+{
+	Node<T> *cur = head; 
+	size_t cur_index = 0;
+	while (cur_index != index && cur != nullptr) 
+	{
+		cur = cur->next;
+		++cur_index;
+	}
+	if (cur_index == index) 
+	{
+		return cur;
+	}
+	
+	return nullptr;
 }
 
 template<typename T>
